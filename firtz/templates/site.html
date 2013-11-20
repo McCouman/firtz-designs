@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="{{ substr(@feedattr.language,0,2) }}">
+  <head>
+    <meta charset="utf-8">
+    <title>{{@feedattr.title}}<check if="{{@showpage}}"> - {{basename(@showpage,'.html')}}</check></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="{{@feedattr.description}}"/>
+    <meta name="author" content="{{@feedattr.author | raw}}"/>
+    <check if="{{@feedattr.image}}">
+      <meta property="og:image" content="{{@feedattr.image}}"/>
+    </check>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="<check if="{{!@showpage}}"><true>{{@og.title}}</true><false>{{basename(@showpage,'.html')}}</false></check>"/>
+    <meta property="og:url" content="<check if="{{!@showpage}}"><true>{{@og.url}}</true><false>{{@BASEURL}}{{@feedattr.slug}}/show/page/{{basename(@showpage)}}</false></check>"/>
+    <meta property="og:site_name" content="{{@feedattr.title}}"/>
+    <check if="{{@og.audio}}">
+      <meta property="og:{{@og.audio.typename}}" content="{{@og.audio.url}}"/>
+      <meta propertyp="og:{{@og.audio.typename}}:type" content="{{@og.audio.type}}"/>
+    </check>
+    <link href="{{@feedattr.sitecss}}" rel="stylesheet">
+<style type="text/css">
+body{padding-top:20px;padding-bottom:40px} 
+a>h3,.homebut,a>h3:hover,a:hover,
+.homebut:hover{ text-decoration:none !important }  
+.container-narrow{ margin:0 auto; max-width:700px } 
+.container-narrow >hr{ margin:30px 0 }  
+.jumbotron{ margin:30px 0; text-align:center } 
+.jumbotron h1{ font-size:72px; line-height:1 } 
+.jumbotron .btn{ font-size:21px; padding:14px 24px }  
+.marketing{ margin:20px 0 } 
+.marketing p+h4{ margin-top:28px } 
+<check if="{{@feedattr.color}}">
+body{
+     background: {{@feedattr.background}} !important;
+}
+hr {
+	border-top: 1px solid {{@feedattr.dark}} !important;
+}
+a {
+	color: {{@feedattr.dark}} !important;
+	text-decoration: none;
+}
+div.footer p, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 { 
+	color: {{@feedattr.header}} !important;
+}
+.nav>li>a:hover,
+.nav>li>a:focus{
+	color: {{@feedattr.dark}} !important;
+}
+.jumbotron {
+	background: {{@feedattr.jumbotron}} !important;
+}
+.lead, p.lead, .jumbotron h1 {
+	color: {{@feedattr.jumbocolor}} !important;
+}
+.nav .caret {
+	border-top-color: {{@feedattr.dark}} !important;
+	border-bottom-color: {{@feedattr.dark}} !important;
+}
+.podlovewebplayer_wrapper {
+	background: transparent !important;
+}
+.mejs-button.mejs-volume-button button, 
+.mejs-controls .mejs-mute button { color: #ffffff !important; }
+.mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-current {
+	background: #e6e6e6 !important;
+}
+.mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-total {
+	background: {{@feedattr.dark}} !important;
+}
+.podlovewebplayer_wrapper .mejs-container .mejs-inner .mejs-controls .mejs-time-rail .mejs-time-total 
+.mejs-time-loaded { 
+	background: {{@feedattr.light}} !important; 
+}
+.mejs-controls .mejs-time-rail .mejs-time-total {
+	background: {{@feedattr.dark}} !important; 
+}
+.mejs-controls .mejs-time-rail .mejs-time-current {
+	background: #e6e6e6 !important;
+}
+.podlovewebplayer_wrapper .podlovewebplayer_meta,.podlovewebplayer_wrapper 
+.podlovewebplayer_meta .subtitle,.podlovewebplayer_wrapper 
+.podlovewebplayer_meta h3,.podlovewebplayer_wrapper .podlovewebplayer_meta h3 a,
+.podlovewebplayer_meta + .summary,.podlovewebplayer_wrapper .podlovewebplayer_controlbox,
+.podlovewebplayer_wrapper .podlovewebplayer_meta .togglers{
+	color: #ffffff !important;
+}
+.podlovewebplayer_wrapper .podlovewebplayer_top,.podlovewebplayer_wrapper .podlovewebplayer_meta{
+	background: {{@feedattr.color}} !important;
+}
+.podlovewebplayer_meta .bigplay{
+	color: #ffffff;
+	border-color: #ffffff !important;
+} 
+.podlovewebplayer_meta .bigplay:hover,
+.podlovewebplayer_meta .bigplay:active,
+.podlovewebplayer_meta .bigplay.playing:hover,
+.podlovewebplayer_meta .bigplay:focus,
+.podlovewebplayer_meta .bigplay:hover,
+.podlovewebplayer_meta .bigplay:active {
+	border: 5px solid #ffffff !important;
+	-webkit-text-shadow: 0px 0px 10px #ffffff !important;
+	-moz-text-shadow: 0px 0px 10px #ffffff !important;
+	-o-text-shadow: 0px 0px 10px #ffffff !important;
+	text-shadow: 0px 0px 10px #ffffff !important;
+}  
+.podlovewebplayer_meta .bigplay {
+	color: #ffffff !important;
+} 
+.podlovewebplayer_meta .bigplay.playing:active {
+	color:#ffffff !important; 
+	border-color:#ffffff !important;
+	text-shadow:0px 0px 4px #ffffff !important;
+	text-decoration:none;
+	filter:dropshadow(color=#ffffff,offx=0,offy=0);cursor:pointer;
+}
+.podlovewebplayer_meta .togglers .infobuttons,.podlovewebplayer_meta .togglers .infobuttons a,
+.podlovewebplayer_wrapper .podlovewebplayer_controlbox .infobuttons,
+.podlovewebplayer_wrapper .podlovewebplayer_controlbox .infobuttons a{
+	color:#ffffff;
+	text-shadow:0px 0px 1px #ffffff !important; 
+	text-decoration:none;
+}
+.podlovewebplayer_meta .togglers .infobuttons:hover,
+.podlovewebplayer_meta .togglers .infobuttons a:hover,
+.podlovewebplayer_wrapper .podlovewebplayer_controlbox .infobuttons:hover,
+.podlovewebplayer_wrapper .podlovewebplayer_controlbox .infobuttons a:hover{
+	text-shadow:0px 0px 4px #ffffff !important; 
+	text-decoration:none;
+	filter:dropshadow(color=#ffffff,offx=0,offy=0);cursor:pointer;
+}
+.podlovewebplayer_meta + .summary,.podlovewebplayer_wrapper .podlovewebplayer_controlbox{
+	background: {{@feedattr.color}} !important;
+	border-left:3px {{@feedattr.color}} !important;
+	border-right:3px {{@feedattr.color}} !important;
+}
+.podlovewebplayer_wrapper .podlovewebplayer_controlbox{
+	background: {{@feedattr.dark}} !important;
+	border-left:3px {{@feedattr.dark}} solid !important;
+	border-right:3px {{@feedattr.dark}} solid !important;
+}
+.mejs-controls .mejs-play button{
+	background-position:0 0;
+}
+.mejs-controls .mejs-pause button{
+	background-position:0 -16px;
+}
+.mejs-controls .mejs-stop button{
+	background-position:-112px 0;
+}
+.mejs-controls .mejs-fullscreen-button button{
+	background-position:-32px 0;
+}
+.mejs-controls .mejs-unfullscreen button{background-position:-32px -16px;}
+.mejs-controls .mejs-mute button{background-position:-16px -16px;}
+.mejs-controls .mejs-unmute button{background-position:-16px 0;}
+.mejs-controls .mejs-captions-button button{background-position:-48px 0;}
+.mejs-controls .mejs-loop-off button{background-position:-64px -16px;}
+.mejs-controls .mejs-loop-on button{background-position:-64px 0;}
+.mejs-controls .mejs-backlight-off button{background-position:-80px -16px;}
+.mejs-controls .mejs-backlight-on button{background-position:-80px 0;}
+.mejs-controls .mejs-sourcechooser-button button{background-position:-128px 0;}
+.podlovewebplayer_wrapper .mejs-container .mejs-inner .mejs-controls {
+	background: {{@feedattr.color}} !important;
+	-webkit-box-shadow: 0px 1px transparent !important;
+	-moz-box-shadow: 0px 1px transparent !important;
+	box-shadow: 0px 1px transparent !important;
+}
+.mejs-container .mejs-controls .mejs-time span{
+	color:#111;
+}
+.podlovewebplayer_wrapper .podlovewebplayer_chapterbox{
+	border:0px {{@feedattr.dark}} solid !important;
+	border-bottom:0px {{@feedattr.dark}} solid !important;
+	margin-top: 20px;
+}
+.podlovewebplayer_wrapper .podlovewebplayer_tableend{
+	background: {{@feedattr.color}} !important;
+}
+.podlovewebplayer_wrapper .podlovewebplayer_chapters tr {
+	background: #FFF !important;
+}
+.podlovewebplayer_wrapper .podlovewebplayer_chapters tr.active, 
+.podlovewebplayer_wrapper .podlovewebplayer_chapters tr.active:hover {
+	background: {{@feedattr.light}} !important;
+}
+.podlovewebplayer_wrapper .podlovewebplayer_tableend {
+	background: transparent !important;
+	-webkit-box-shadow: 0px 0px transparent !important;
+}
+.podlovewebplayer_meta .bigplay, 
+.podlovewebplayer_meta .togglers .infobuttons, 
+.podlovewebplayer_meta .togglers .infobuttons a, 
+.podlovewebplayer_wrapper .podlovewebplayer_controlbox .infobuttons, 
+.podlovewebplayer_wrapper .podlovewebplayer_controlbox .infobuttons a {
+	color: #ffffff !important;
+}
+.podlovewebplayer_wrapper .podlovewebplayer_meta .bigplay {
+	border: 5px solid #ffffff !important;
+}
+.mejs-container .mejs-controls .mejs-time span{
+	color: #ffffff !important;
+}
+.podlovewebplayer_chapters * {
+	height: 40px;
+}
+.podlovewebplayer_wrapper .podlovewebplayer_top, .podlovewebplayer_wrapper .podlovewebplayer_meta {
+	-webkit-border-top-left-radius: 0px !important;
+	-webkit-border-top-right-radius: 0px !important;
+	-moz-border-radius-topleft: 0px !important;
+	-moz-border-radius-topright:  0px !important;
+	border-top-left-radius: 0px !important;
+	border-top-right-radius: 0px !important;
+}
+</check>
+</style>
+    <link href="{{@BASEURL}}css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="{{@BASEURL}}pwp/static/podlove-web-player.css" rel="stylesheet" media="screen" type="text/css" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{@feedattr.image}}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{@feedattr.image}}">
+    <link rel="apple-touch-icon-precomposed" href="{{@feedattr.image}}">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <script src="{{@BASEURL}}js/jquery.js"></script>
+    <repeat group="{{glob(@templatepath.'/head/*.html')}}" value="{{@template}}"> <include href="{{'head/'.basename(@template)}}"/> </repeat>
+</head>
+  <body>
+    <div class="container-narrow">
+      <div class="masthead">
+		<ul class="nav nav-pills pull-right">
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">{{@dict_subscribe}} <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<repeat group="@feedattr.audioformats" value="{{@format}}">
+					<li><a href="{{@feedattr.baserel}}{{@format}}{{@extxml}}">{{@format}}</a></li>
+				</repeat>
+				<check if="{{@feedattr.itunes}}">
+					<li><a href="{{@feedattr.itunes}}">iTunes</a></li>
+				</check>
+				<script type="text/javascript">
+				//if (navigator.userAgent.match(/iPhone|iPad|iPod/i))				
+				document.write('<li><a href="{{str_replace('http://','podcast://',@feedattr.instacast)}}">Instacast</a></li>');
+				</script>
+			</ul>			
+		</li>		
+		<repeat group="{{glob(@templatepath.'/pages/*',GLOB_ONLYDIR)}}" value="{{@dir}}">			
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">{{basename(@dir)}} <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<repeat group="{{glob(@templatepath.'/pages/'.basename(@dir).'/*.html')}}" value="{{@template}}">
+					<li><a href="{{@BASEURL}}{{@feedattr.slug}}/show/page/{{basename(@dir)}}/{{basename(@template,'.html')}}{{@exthtml}}">{{basename(@template,'.html')}}</a></li>
+				</repeat>
+			</ul>
+		</li>
+		</repeat>		
+		<repeat group="{{glob(@templatepath.'/pages/*.html')}}" value="{{@template}}">
+			<li><a href="{{@BASEURL}}{{@feedattr.slug}}/show/page/{{basename(@template,'.html')}}{{@exthtml}}">{{basename(@template,'.html')}}</a></li>
+		</repeat>
+		<repeat group="{{glob(@templatepath.'/header/*.html')}}" value="{{@template}}">
+			<include href="{{'header/'.basename(@template)}}"/>
+		</repeat>        
+        </ul>
+        <h3 style="padding:10px;"><a class="homebut" href="{{@BASEURL}}"><img src="{{@feedattr.image}}" width=80 /></a></h3>
+      </div>	
+    
+    <hr style="margin-bottom: -30px;">
+      <div class="jumbotron" style="opacity: 0.96;">
+		<h1>{{@feedattr.title}}</h1>
+        <p class="lead">{{@feedattr.description}}</p>
+      </div>
+	<hr style="margin-top: -30px;">
+	
+	<check if="{{@page!=0}}">
+		<div>
+			<ul class="pager">
+				<check if="{{@page>1}}">
+					<li class="previous">
+						<a href="{{@BASEURL}}{{@feedattr.slug}}/show/pager/{{@page-1}}">&larr; {{@dict_newer}}</a>
+					</li>
+				</check>
+				<check if="{{@page<@maxpage}}">
+					<li class="next">
+						<a href="{{@BASEURL}}{{@feedattr.slug}}/show/pager/{{@page+1}}">&rarr; {{@dict_older}}</a>
+					</li>
+				</check>
+			</ul>
+		</div>
+	</check>
+
+<!--FLUID-->		
+<div class="row-fluid marketing">
+
+<!--SHOWPAGE-->
+<check if="{{!@showpage}}">
+
+<!--REPEAT SHOW-->		
+<true>		
+<repeat group="@items" value="{{@item}}">
+	<br>
+	  <br />
+		<a href="<check if="{{@singlepage==false}}">{{@BASEURL}}{{@feedattr.slug}}/show/{{@item.slug}}</check>" name="{{@item.slug}}"><h2 class="text-center">{{@item.title}}</h2></a>			
+		<h5 class="text-center">{{@dict_pubdate,strtotime(@item.pubDate) | format}}</h5>
+	  <br>
+	<br />
+	
+<!--CHECK AUDIO-->
+<check if="{{@item.noaudio==''}}">
+
+	<!--page-->
+	<div style="background: #fff; opacity: 0.96;">				
+		<!--webplayer-podlove-->			
+		<include href="podlove-player.html"/>
+		<!--/webplayer-podlove-->				
+				
+		<!--content-->		
+		<div style="padding:20px; margin-top: -40px;">									
+					
+					<h3>Shownotes</h3>
+					
+					<!--article content-->					
+					<check if="{{(trim(@item.article)!='')}}">
+						{{@item.article | raw}}
+					</check>
+					<!--/article content-->						
+					<!--contributors-->								
+					<check if="{{@item.podcasters}}">
+						<h4>Mit dabei waren diesmal:</h4>
+						<p>{{@item.podcasters}}</p>
+					</check>
+					<!--/contributors-->
+				<br>
+			<hr />	
+				<!--downloads & bitlove-->			
+				<ul class="nav nav-pills pull-right">					
+					<!--/download-->					
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Download <b class="caret"></b></a>
+						<ul class="dropdown-menu pull-right">
+							<repeat group="{{@item.audiofiles}}" value="{{@audiofile}}" key="{{@audiotype}}">
+							<li><a title="download {{@audiotype}} - size: {{ceil(@audiofile.length / 1048576)}} MByte" href="{{@audiofile.link}}">{{@audiotype}}</a></li>
+							</repeat>
+						</ul>
+					</li>
+					<!--download-->
+					
+					<!--bitlove-->
+					<check if="{{@feedattr.bitlove}}">
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Bitlove <b class="caret"></b></a>
+						<ul class="dropdown-menu pull-right">
+							<repeat group="{{@feedattr.bitlove}}" value="{{@bitlove}}" key="{{@audiotype}}">
+							<li><a title="bitlove torrent {{@audiotype}}" href="http://bitlove.org/{{@bitlove.user}}/{{@bitlove.feed}}/{{@item.slug}}.{{@audiotype}}.torrent">{{@audiotype}}</a></li>
+							</repeat>
+						</ul>
+					</li>
+					</check>
+					<!--/bitlove-->
+				</ul>
+				<!--/downloads & bitlove-->	
+			
+			<!--flattr-->
+			<check if="{{@feedattr.flattrid}}">
+				<iframe src="http://api.flattr.com/button/view/?user_id={{@feedattr.flattrid}}&amp;url={{@item.flattrlink | raw}}&amp;language={{@feedattr.flattrlanguage | raw}}&amp;category=audio&amp;title={{@item.flattrtitle | raw}}&amp;description={{@item.flattrdescription | raw}}&amp;tags={{@item.flattrkeywords | raw}}&amp;popout=0&amp;button=compact" class="FlattrButton" width="110" height="20" frameborder="0" scrolling="no" border="0" marginheight="0" marginwidth="0" allowtransparency="true"></iframe>
+			</check>
+			<!--/flattr-->
+			
+			<!--episode-template-->
+			<div>
+				<repeat group="{{glob(@templatepath.'/episode/*.html')}}" value="{{@template}}">
+					<include href="{{'episode/'.basename(@template)}}"/>
+				</repeat>
+			</div>
+			<!--/episode-template-->
+			
+			<!--comments-->
+			<check if="{{@feedattr.disqus}}">
+				<include href="disqus.html"/>
+			</check>
+			<!--/comments-->
+
+		</div>
+		<!--/content-->
+			
+	</div>
+	<!--/page-->
+</check>
+<!--/SHOWPAGE-->
+			
+			
+</repeat>
+<!--/REPEAT SHOW-->
+</true>
+
+	<!--SHOWPAGE-->
+	<false>
+		<include href="{{@showpage}}"/>
+	</false>
+	<!--/SHOWPAGE-->
+
+
+</check>
+<!--/CHECK AUDIO-->
+
+		<!--footer-pagination-->
+		<check if="{{@page!=0}}">
+			<div>
+			<ul class="pager">
+				<check if="{{@page>1}}">
+					<li class="previous">
+						<a href="{{@BASEURL}}{{@feedattr.slug}}/show/pager/{{@page-1}}">&larr; {{@dict_newer}}</a>
+					</li>
+				</check>
+				<check if="{{@page<@maxpage}}">
+					<li class="next">
+						<a href="{{@BASEURL}}{{@feedattr.slug}}/show/pager/{{@page+1}}">&rarr; {{@dict_older}}</a>
+					</li>
+				</check>
+			</ul>
+			</div>
+		</check>
+		<!--/footer-pagination-->      
+	
+	<br>
+	<br />
+	
+	<!--footer-->
+	<div class="footer">
+        <p>
+        	{{@feedattr.author | raw}}
+			<check if="{{@feedattr.twitter}}">
+				<span>| twitter: <a id="color" href="https://twitter.com/{{@feedattr.twitter}}">@{{@feedattr.twitter}}</a></span>
+			</check>
+			<check if="{{@feedattr.adn}}">
+				<span id="color">| adn: <a rel="me" href="https://alpha.app.net/{{@feedattr.adn}}">@{{@feedattr.adn}}</a></span>
+			</check>
+		
+			<check if="{{@feedattr.email}}">
+				<span>| email: <a href="mailto:{{@feedattr.email}}">{{@feedattr.email}}</a></span>
+			</check>
+			<check if="{{@feedattr.licensename}}">
+				<span>| {{@dict_license}}: <a href="{{@feedattr.licenseurl}}">{{@feedattr.licensename}}</a></span>
+			</check>		
+		
+        	<repeat group="{{glob(@templatepath.'/footer/*.html')}}" value="{{@template}}">
+				<include href="{{'footer/'.basename(@template)}}"/>
+			</repeat>
+		</p>		
+		
+		<check if="{{@feedattr.flattrid}}">
+			<iframe src="http://api.flattr.com/button/view/?user_id={{@feedattr.flattrid}}&amp;url={{@feedattr.flattrlink | raw}}&amp;language={{@feedattr.flattrlanguage | raw}}&amp;category=audio&amp;title={{@feedattr.flattrtitle | raw}}&amp;description={{@feedattr.flattrdescription | raw}}&amp;tags={{@feedattr.flattrkeywords | raw}}&amp;popout=0&amp;button=compact"
+				class="FlattrButton" width="110" height="20" frameborder="0" scrolling="no" border="0" marginheight="0" marginwidth="0" allowtransparency="true">
+			</iframe>
+		</check>
+	</div>
+	<!--/footer-->
+	
+</div>
+<!--/FLUID-->
+
+
+	<script src="{{@BASEURL}}js/bootstrap.min.js"></script>
+	<script src="{{@BASEURL}}pwp/libs/html5shiv.js"></script>
+	<script src="{{@BASEURL}}pwp/static/podlove-web-player.js"></script>
+	<check if="{{@feedattr.disqus}}">
+		<include href="disqus_multiple.js"/>
+	</check>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<div style="background:#fff; padding: 2px 15px 5px 15px;">
+<h2>Podcast Archiv</h2>
+<p>Finde hier alle Episoden dieses Podcasts in einer Übersicht.</p>
+<br>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">      
+            <tr>
+              <th width=65>#</th>
+              <th width=85>Vom</th>
+              <th>Titel</th>
+              <th width=85>{{@dict_duration}}</th>
+            </tr>
+    	<repeat group="@items" value="{{@item}}">
+            <tr>
+              <td width=65><img class="media-object pull-left" src="{{@item.image}}" width=64 height=64></td>
+              <td>{{@dict_pubdate,strtotime(@item.pubDate) | format}}</td>
+              <td><h4><a href="/{{@feedattr.slug}}/show/{{@item.slug}}" name="{{@item.slug}}"> <span class="text-center">{{@item.title}}</span></a> </h4>
+              	{{@item.description}}
+              </td>
+              <td><check if="{{@item.duration}}">{{@item.duration}}</check></td>
+            </tr>
+		</repeat>   
+  </table>  
+</div>
+</div>
