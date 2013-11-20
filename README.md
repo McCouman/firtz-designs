@@ -38,7 +38,7 @@ Grüße [McCouman](https://github.com/McCouman)
 
 ## Original Links
 
-Ich habe firtz mit [fatfree framework](https://github.com/bcosca/fatfree) und [bootstrap](http://twitter.github.com/bootstrap/) zusammengeschraubt.
+[eazyliving](https://github.com/eazyliving) hat firtz mit [fatfree framework](https://github.com/bcosca/fatfree) und [bootstrap](http://twitter.github.com/bootstrap/) zusammengeschraubt.
 
 Weiterhin hilft der [Podlove Webplayer](https://github.com/gerritvanaaken/podlove-web-player) massiv dazu bei, dass alles halbwegs hübsch aussieht :)
 
