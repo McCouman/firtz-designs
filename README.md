@@ -3,6 +3,7 @@
 
 *firtz podcast publisher*  
 *Version 1.3*
+*in dieser Version auch Bootstrap 3.2*
 
 ## Über
 
