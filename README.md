@@ -3,7 +3,8 @@
 
 *firtz podcast publisher*  
 *Version 1.3*
-*in dieser Version auch Bootstrap 3.2*
+
+*In dieser Version auch Bootstrap 3.2*
 
 ## Über
 
@@ -14,7 +15,7 @@ Wer es ganz einfach haben möchte, verbündet sich mit auphonic und überlässt 
 
 ###Was ist jetzt das?
 
-Hier gibet eine veränderten [Firtz](https://github.com/eazyliving/firtz/) mit eigenen Möglichkeiten zum Designen. Dafür sind zusätzliche Angaben in der <code>feed.cfg</code>
+Hier gibet eine veränderten [firtz](https://github.com/eazyliving/firtz/) mit eigenen Möglichkeiten zum Designen. Dafür sind zusätzliche Angaben in der <code>feed.cfg</code>
 möglich. Du findest hier aber auch schon 4 Ideen zum verändern oder gleich selber nutzen.
 
 Grüße [McCouman](https://github.com/McCouman)
